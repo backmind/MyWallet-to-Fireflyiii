@@ -33,7 +33,7 @@ Once data has been made compatible with Firefly iii you can load it into your Fi
 1. A running [Firefly iii](https://github.com/firefly-iii/firefly-iii) (ffiii) instance
 2. A running [Firefly iii Data Importer](https://github.com/firefly-iii/data-importer) (FIYI) instance, already connected with your ffiii app.
 
-So in order to import the data, you have to go to your FIYI instance and:
+So, in order to import the data, you have to go to your FIYI instance and follow the next steps:
 1. Click on ```Import file```
 2. At ```Importable file``` select the csv we previously exported
 3. At ```Optional configuration file``` select the file ```FIYIcfg\mywallet.json``` wich is part of the current repository
