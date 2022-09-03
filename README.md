@@ -1,5 +1,5 @@
 # MyWallet-to-Fireflyiii
-Python [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) processer for exporting [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) Android app database to [Firefly iii](https://github.com/firefly-iii/firefly-iii)
+Python [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) processor for exporting [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) Android app database to [Firefly iii](https://github.com/firefly-iii/firefly-iii)
 
 # What is the problem?
 Althoug [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) is a great budget application, it lacks of advanced statistics and dashboarding, and it is for Android ecosystem only. Also, the syncronization of the data from the app has no cloud compatibility anymore. This forces to a manual creation of raw data backups. Furthermore, this app have no updates since Aug 2016.
