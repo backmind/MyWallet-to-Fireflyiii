@@ -38,8 +38,8 @@ So, in order to import the data, you have to go to your FIYI instance and follow
 2. At ```Importable file``` select the csv we previously exported
 3. At ```Optional configuration file``` select the file ```FIYIcfg\mywallet.json``` wich is part of the current repository
 4. Follow the import steps
-5 ...
-6 Profit!
+5. ...
+6. Profit!
 
 # And now what?
 Once its done you will have all your data imported at ffiii. There is even some [Android/ios apps](https://docs.firefly-iii.org/firefly-iii/other-pages/3rdparty/#mobile-applications) which can connect with your ffiii instance that can substitude MyWallet with ease.
