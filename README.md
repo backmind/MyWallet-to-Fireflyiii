@@ -24,7 +24,7 @@ First, you need to export database:
 4. Copy that file in anyplace of your pc
 
 ## 2. Transforming database into CSV
-Once you have your database we must make it compatible with firefly-iii. To doing so, we will use the python script of this repository named ```AccounterExporter.py```
+Once you have your database you must make it compatible with firefly-iii. To doing so, you will use the python script of this repository named ```AccounterExporter.py```
 1. Edit the constant ```DB_PATH``` with full filename path to the exported MySQL database
 2. (optional) Edit the constant ```OUTPUT_NAME``` with full filename path to the csv file that will be exported. Otherwise it will be saved as ```./dbexported.csv```
 
