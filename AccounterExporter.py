@@ -38,7 +38,7 @@ def get_account(account):
     date_init = df.exp_date.min()+pd.Timedelta(days=-1)
     amount_init = acc.loc[idd, "acc_initial"].values[0]
     exp_payee_name_init = "Initial founds"
-    category_name_init = "Otro"
+    category_name_init = "Other"
     exp_note_init = "Initial founds"
     df = df.append(dict(zip(df.columns, [date_init, amount_init, exp_payee_name_init,
                    account, category_name_init, exp_note_init])), ignore_index=True)
