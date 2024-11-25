@@ -1,49 +1,67 @@
 # MyWallet-to-Fireflyiii
-Python [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) processor for exporting [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) Android app database to [Firefly iii](https://github.com/firefly-iii/firefly-iii)
+Python [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) processor for exporting the [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) Android app database to [Firefly iii](https://github.com/firefly-iii/firefly-iii).
 
-# What is the problem?
-Althoug [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) is a great budget application, it lacks of advanced statistics and dashboarding, and it is for Android ecosystem only. Also, the syncronization of the data from the app has no cloud compatibility anymore. This forces to a manual creation of raw data backups. Furthermore, this app have no updates since Aug 2016.
+## The Problem
+Although the [MyWallet expense manager](https://play.google.com/store/apps/details?id=com.apps.balli.mywallet) is a great budgeting application, it lacks advanced statistics and dashboards, and is limited to the Android ecosystem. Moreover, data synchronization from the app no longer supports cloud compatibility, necessitating manual backups of raw data. Additionally, the app hasn't received updates since August 2016.
 
-Then, [Firefly iii](https://github.com/firefly-iii/firefly-iii) (ffiii) app came to save me: ```"Firefly III" is a (self-hosted) manager for your personal finances. It can help you keep track of your expenses and income, so you can spend less and save more```. The purpose of this project is to ETL data from MyWallet to Firefly iii.
+Enter [Firefly iii](https://github.com/firefly-iii/firefly-iii) (ffiii), a self-hosted personal finance manager that helps track expenses and income, enabling better financial decisions. The goal of this project is to seamlessly transfer data from MyWallet to Firefly iii using an ETL process.
 
-### Dependencies
+## Dependencies
 
-See *requirements.txt*. You can install through line:
-`pip install -r /path/to/requirements.txt`
+See *requirements.txt*. You can install them with:
+```sh
+pip install -r /path/to/requirements.txt
+```
 
->pandas==1.3.5
+> pandas==1.3.5
 
-# Step by step process
+## Step-by-Step Process
 
-## 1. Exporting the MyWallet database
-First, you need to export database:
-1. From the main screen of the app click at "More" on the botton right
-2. Go to "Backup and restore"
-3. Make a new backup by clicking at "Save Backup"
- A MySQL database file will be saved at SDCard:/MyWallet/Backups in the name of XX_XX_XXXX_ExpensoDB (where XX_XX_XXXX is the current date)
-4. Copy that file in anyplace of your pc
+### 1. Exporting the MyWallet Database
+First, you need to export the database:
+1. From the main screen of the app, click on "More" in the bottom right corner.
+2. Go to "Backup and restore".
+3. Create a new backup by clicking on "Save Backup". A MySQL database file will be saved at `SDCard:/MyWallet/Backups` with the name `XX_XX_XXXX_ExpensoDB` (where `XX_XX_XXXX` is the current date).
+4. Copy this file to your computer.
 
-## 2. Transforming database into CSV
-Once you have your database you must make it compatible with firefly-iii. To doing so, you will use the python script of this repository named ```AccounterExporter.py```
-1. Edit the constant ```DB_PATH``` with full filename path to the exported MySQL database
-2. (optional) Edit the constant ```OUTPUT_NAME``` with full filename path to the csv file that will be exported. Otherwise it will be saved as ```./dbexported.csv```
+### 2. Transforming the Database into CSV
+Next, you need to make the database compatible with Firefly iii. Use the Python script `AccounterExporter.py` in this repository:
+1. Edit the constant `DB_PATH` with the full path to the exported MySQL database.
+2. (Optional) Edit the constant `OUTPUT_NAME` with the full path to the CSV file to be exported. If not specified, it will be saved as `./dbexported.csv`.
 
-## 3. Load the exported database into Firefly iii
-Once data has been made compatible with Firefly iii you can load it into your Firefly iii instance. To doing so you need:
-1. A running [Firefly iii](https://github.com/firefly-iii/firefly-iii) (ffiii) instance
-2. A running [Firefly iii Data Importer](https://github.com/firefly-iii/data-importer) (FIYI) instance, already connected with your ffiii app.
+### 3. Load the Exported Database into Firefly iii
+Now, load the transformed data into your Firefly iii instance. You will need:
 
-So, in order to import the data, you have to go to your FIYI instance and follow the next steps:
-1. Click on ```Import file```
-2. At ```Importable file``` select the csv we previously exported
-3. At ```Optional configuration file``` select the file ```FIYIcfg\mywallet.json``` wich is part of the current repository
-4. Follow the import steps
-5. ...
-6. Profit!
+1. A running [Firefly iii](https://github.com/firefly-iii/firefly-iii) (ffiii) instance.
+2. A running [Firefly iii Data Importer](https://github.com/firefly-iii/data-importer) (FIYI) instance, connected to your ffiii app.
 
-# And now what?
-Once its done you will have all your data imported at ffiii. There is even some [Android/ios apps](https://docs.firefly-iii.org/firefly-iii/other-pages/3rdparty/#mobile-applications) which can connect with your ffiii instance that can substitude MyWallet with ease.
+Before loading the data, follow these steps in Firefly iii:
 
-I do recommend to check [ffiii documentation](https://docs.firefly-iii.org/), wich is quite good and clear.
+1. **Create a New Account**:
+   - Go to **Accounts** -> **Active accounts**.
+   - Create all accounts you have in your MyWallet app.
 
-Its worth to notice that I have included a function into the code called ```get_account_wtransfers()```, which can be handy if you want to play arround with your data from MyWallet, due to it allows you to load a single account with all of its assets (including the ones that came from transferences between accounts)
+2. **Set Up OAuth Client**:
+   - Go to **Profile** -> **OAuth** -> **New Client**.
+   - Name it (e.g., `fiii`), and paste the callback URL from your Firefly iii importer instance (e.g., `http://localhost:81/callback`).
+   - Uncheck **confidential**.
+   - Click on **create** and note down the **Client ID**.
+
+3. **Authorize the App**:
+   - Go to your Firefly iii importer, paste the Client ID, and authorize the app.
+
+Once these steps are complete, you can start loading the data into Firefly iii. In your FIYI instance:
+1. Click on `Import file`.
+2. Select the CSV file you previously exported under `Importable file`.
+3. Choose the configuration file `FIYIcfg/mywallet.json` from this repository under `Optional configuration file`.
+4. Follow the import steps.
+
+### And Now What?
+Once completed, all your data will be imported into Firefly iii. You can use various [Android/iOS apps](https://docs.firefly-iii.org/firefly-iii/other-pages/3rdparty/#mobile-applications) that connect with your Firefly iii instance, replacing MyWallet seamlessly.
+
+I recommend checking out the [Firefly iii documentation](https://docs.firefly-iii.org/), which is thorough and clear.
+
+I've included a function in the code called `get_account_wtransfers()`, which can be handy if you want to work with your MyWallet data, as it allows you to load a single account with all its transactions, including transfers between accounts.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
